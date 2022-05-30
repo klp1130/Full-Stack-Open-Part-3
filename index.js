@@ -3,6 +3,8 @@ const app = express()
 
 app.use(express.json())
 
+
+
 let persons = [
     { 
       "id": 1,
@@ -32,7 +34,7 @@ let persons = [
   })
 
   /// Get: used to define how the request is responded to 
-  app.get('/api/persons/:id', (request, response) => {
+  app.get('/api/persons/id', (request, response) => {
     const id = Number(request.params.id)
     const person = persons.find(person => person.id === id)
     response.json(persons)
