@@ -4,7 +4,7 @@ const app = express()
 let persons = [
     { 
       "id": 1,
-      "name": "Arto Hellas", 
+      "name": "Arto Hellas",  
       "number": "040-123456"
     },
     { 
@@ -24,17 +24,31 @@ let persons = [
     }
 ]
 
-// event handler to handle HTTP GET requests made to the apps / root
+  /// an event handler that is used to handle GET made a /root:
   app.get('/', (request, response) => {
     response.send('<h1>Hello World!</h1>')
   })
-  
-// event handler that handles HTTP GET requests made to the persons path of app  
-  app.get('/api/persons', (request, response) => {
+
+  /// used to define how the request is responded to 
+  app.get('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    const person = persons.find(person => person.id === id)
     response.json(persons)
+
+    if (person) {
+      response.json(person)
+    } else {
+      response.status(404).end()
+    }
+  })
+
+  app.delete('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    persons = persons.filter(person => person.id !== id)
+  
+    response.status(204).end()
   })
   
-
   const PORT = 3001
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
