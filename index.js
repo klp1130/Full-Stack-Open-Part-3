@@ -52,10 +52,42 @@ let persons = [
     }
   })
 
+   /*persons need a unique id. find out the largest id 
+    number in the current list and assign it to the maxId 
+    variable. the id of the new persons is then defined as maxID + 1. 
+    Math.max() returns the largest mapped id numbers 
+    the spread operator (...) is used because persons.map(p => p.id)  is an array and cannot 
+    be directly given as a parameter to Math.max.
+    the array is transformed into individual numbers by using the spread operator. 
+    */
+
+    const generateId = () => {
+    const maxId = persons.length > 0 
+    ? Math.max(...persons.map(p => p.id))
+    : 0
+    return maxId + 1
+    }
+
   /// POST
   app.post('/api/persons', (request, response) => {
-    const person = request.body
-    console.log(person)
+    const body = request.body
+
+  // id data for name is missing, server will respond with 400 bad request 
+
+    if (!body.name) {
+      return response.status(400).json({
+        error: 'name missing'
+      })
+    }
+
+    const person = {
+      name: body.name,
+      number: body.number,
+      id: generateId(),
+    }
+
+    persons = persons.concat(person)
+
     response.json(person)
   })
 
