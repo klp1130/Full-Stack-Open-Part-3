@@ -1,7 +1,6 @@
+const { response } = require('express')
 const express = require('express')
 const app = express()
-
-app.use(express.json())
 
 
 
@@ -28,9 +27,16 @@ let persons = [
     }
 ]
 
+  app.use(express.json())
+
+
   /// GET: an event handler that is used to handle GET made a /root:
   app.get('/', (request, response) => {
     response.send('<h1>Hello World!</h1>')
+  })
+
+  app.get('/api/persons', (request, response) => {
+    response.json(persons)
   })
 
   /// Get: used to define how the request is responded to 
