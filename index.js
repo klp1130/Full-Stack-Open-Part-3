@@ -27,7 +27,6 @@ let persons = [
     }
 ]
 
-
   app.use(express.json())
 
 
@@ -37,8 +36,15 @@ let persons = [
   })
 
   app.get('/info', (request, response) => {
-    response.send('<span> phone book has info for x people</span>')
-  })
+    const currentDate = new Date().toLocaleString();
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      response.send(
+        `<div>
+          <span>phone book has info for ${persons.length} people</span></div>
+        <span>${currentDate} (${timeZone})</span>`,
+      )
+    })
+  
 
   app.get('/api/persons', (request, response) => {
     response.json(persons)
