@@ -35,6 +35,10 @@ let persons = [
     response.send('<h1>Hello World!</h1>')
   })
 
+  app.get('/info', (request, response) => {
+    response.send('<span> phone book has info for x people</span>')
+  })
+
   app.get('/api/persons', (request, response) => {
     response.json(persons)
   })
