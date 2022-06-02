@@ -46,9 +46,9 @@ let persons = [
     })
   
 
-  app.get('/api/persons', (request, response) => {
+ /* app.get('/api/persons', (request, response) => {
     response.json(persons)
-  })
+  })*/
 
   /// Get: used to define how the request is responded to 
   app.get('/api/persons/:id', (request, response) => {
