@@ -46,15 +46,14 @@ let persons = [
     })
   
 
- /* app.get('/api/persons', (request, response) => {
+  app.get('/api/persons', (request, response) => {
     response.json(persons)
-  })*/
+  })
 
-  /// Get: used to define how the request is responded to 
+  /// GET: used to get a specific person by id
   app.get('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     const person = persons.find(person => person.id === id)
-    response.json(persons)
 
     if (person) {
       response.json(person)
@@ -79,7 +78,7 @@ let persons = [
     return maxId + 1
     }
 
-  /// POST
+  /// POST: Add new contact 
   app.post('/api/persons', (request, response) => {
     const body = request.body
 
@@ -88,6 +87,12 @@ let persons = [
     if (!body.name) {
       return response.status(400).json({
         error: 'name missing'
+      })
+    }
+  // id data for number is missing, server will respond with 400 bad request 
+    if (!body.number) {
+      return response.status(400).json({
+        error: 'missing number'
       })
     }
 
