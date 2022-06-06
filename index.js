@@ -1,6 +1,7 @@
 const { response } = require('express')
 const express = require('express')
 const app = express()
+const morgan = require('morgan')
 
 
 
@@ -28,6 +29,17 @@ let persons = [
 ]
 
   app.use(express.json())
+  
+  app.use(morgan((tokens, req, res) => {
+    return [
+      tokens.method(req,res),
+      tokens.url(req,res),
+      tokens.status(req,res),
+      tokens.res(req,res, 'content-length'),'-',
+      tokens['response-time'](req,res), 'ms',
+      JSON.stringify(req.body)
+    ].join(' ')
+  }))
 
 
   /// GET: an event handler that is used to handle GET made a /root:
