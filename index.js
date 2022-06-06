@@ -34,6 +34,17 @@ let persons = [
   app.get('/', (request, response) => {
     response.send('<h1>Hello World!</h1>')
   })
+  /// GET for how many entries are in the phone book + date/time
+  app.get('/info', (request, response) => {
+    const currentDate = new Date().toLocaleString();
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      response.send(
+        `<div>
+          <span>phone book has info for ${persons.length} people</span></div>
+        <span>${currentDate} (${timeZone})</span>`,
+      )
+    })
+  
 
   //app.get('/info')
 
@@ -41,11 +52,10 @@ let persons = [
     response.json(persons)
   })
 
-  /// Get: used to define how the request is responded to 
-  app.get('/api/persons/id', (request, response) => {
+  /// GET: used to get a specific person by id
+  app.get('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     const person = persons.find(person => person.id === id)
-    response.json(persons)
 
     if (person) {
       response.json(person)
@@ -70,7 +80,7 @@ let persons = [
     return maxId + 1
     }
 
-  /// POST
+  /// POST: Add new contact 
   app.post('/api/persons', (request, response) => {
     const body = request.body
 
@@ -79,6 +89,12 @@ let persons = [
     if (!body.name) {
       return response.status(400).json({
         error: 'name missing'
+      })
+    }
+  // id data for number is missing, server will respond with 400 bad request 
+    if (!body.number) {
+      return response.status(400).json({
+        error: 'missing number'
       })
     }
 
