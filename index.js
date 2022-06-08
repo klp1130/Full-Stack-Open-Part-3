@@ -30,6 +30,7 @@ let persons = [
 
   app.use(express.json())
   app.use(cors())
+  app.use(express.static('build'))
   
   app.use(morgan((tokens, req, res) => {
     return [
