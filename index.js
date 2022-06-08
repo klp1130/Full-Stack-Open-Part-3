@@ -2,7 +2,7 @@ const { response } = require('express')
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
-
+const cors = require('cors')
 
 
 let persons = [
@@ -29,6 +29,7 @@ let persons = [
 ]
 
   app.use(express.json())
+  app.use(cors())
   
   app.use(morgan((tokens, req, res) => {
     return [
