@@ -32,7 +32,7 @@ if (process.argv.length === 3) {
 // if node command line prompt is == 5 characters, save entry 
 //where [3] is the name and [4] is the number
 
-   } else if (process.argv.length ==5) {
+   } else if (process.argv.length == 5) {
        const name = process.argv[3]
        const number = process.argv[4]
 
