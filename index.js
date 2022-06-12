@@ -1,3 +1,4 @@
+require('dotenv').config()
 const { response } = require('express')
 const express = require('express')
 const app = express()
@@ -79,13 +80,13 @@ const Person = require('./models/person')
 
   // id data for name is missing, server will respond with 400 bad request 
 
-    if (!body.name) {
+    if (body.name === undefined) {
       return response.status(400).json({
         error: 'name missing'
       })
     }
   // id data for number is missing, server will respond with 400 bad request 
-    if (!body.number) {
+    if (body.number === undefined) {
       return response.status(400).json({
         error: 'missing number'
       })
@@ -109,7 +110,7 @@ const Person = require('./models/person')
     response.status(204).end()
   })
   
-  const PORT = process.env.PORT || 3001
+  const PORT = process.env.PORT
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
   })
