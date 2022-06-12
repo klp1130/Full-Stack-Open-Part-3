@@ -48,31 +48,15 @@ const Person = require('./models/person')
 
   /// GET: used to get a specific person by id
   app.get('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    const person = persons.find(person => person.id === id)
-
+    Person.findById(request.params.id)
+      .then(person => {
     if (person) {
       response.json(person)
     } else {
       response.status(404).end()
     }
   })
-
-   /*persons need a unique id. find out the largest id 
-    number in the current list and assign it to the maxId 
-    variable. the id of the new persons is then defined as maxID + 1. 
-    Math.max() returns the largest mapped id numbers 
-    the spread operator (...) is used because persons.map(p => p.id)  is an array and cannot 
-    be directly given as a parameter to Math.max.
-    the array is transformed into individual numbers by using the spread operator. 
-    */
-
-    const generateId = () => {
-    const maxId = persons.length > 0 
-    ? Math.max(...persons.map(p => p.id))
-    : 0
-    return maxId + 1
-    }
+  })
 
   /// POST: Add new contact 
   app.post('/api/persons', (request, response) => {
@@ -92,15 +76,15 @@ const Person = require('./models/person')
       })
     }
 
-    const person = {
+    const person = new Person ({
       name: body.name,
       number: body.number,
       id: generateId(),
-    }
+    })
 
-    persons = persons.concat(person)
-
-    response.json(person)
+    person.save().then(savedPerson => {
+      response.json(savedPerson)
+    })
   })
 
   /// DELETE
