@@ -1,14 +1,10 @@
-<<<<<<< HEAD
+
 const { request } = require('express')
-=======
 require('dotenv').config()
->>>>>>> 95227bbd27dcfcbddc176809c3a4cc4601bc18bb
 const { response } = require('express')
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
-<<<<<<< HEAD
-
 
 let persons = [
     { 
@@ -32,10 +28,9 @@ let persons = [
       "number": "39-23-6423122"
     }
 ]
-=======
+
 const cors = require('cors')
 const Person = require('./models/person')
->>>>>>> 95227bbd27dcfcbddc176809c3a4cc4601bc18bb
 
 /// Middleware request logger
 app.use(morgan((tokens, req, res) => {
@@ -138,17 +133,13 @@ app.use(morgan((tokens, req, res) => {
     response.status(204).end()
   })
   
-<<<<<<< HEAD
   const unknownEndpoint = (request, response) => {
     response.status(400).send({error: 'unknown endpoint'})
   }
 
   app.use(unknownEndpoint)
 
-  const PORT = 3001
-=======
   const PORT = process.env.PORT
->>>>>>> 95227bbd27dcfcbddc176809c3a4cc4601bc18bb
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
   })
