@@ -4,9 +4,6 @@ const { response } = require('express')
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
-
-
-//Models
 const Person = require('./models/person')
 
 const cors = require('cors')
