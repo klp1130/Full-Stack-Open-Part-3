@@ -44,13 +44,15 @@ app.use(morgan((tokens, req, res) => {
   /// GET for how many entries are in the phone book + date/time
   app.get('/info', (request, response) => {
     const currentDate = new Date().toLocaleString();
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    Person.find({}).then(persons => {
       response.send(
         `<div>
           <span>phone book has info for ${persons.length} people</span></div>
         <span>${currentDate} (${timeZone})</span>`,
       )
     })
+  })
   
 
   // Event handler for fetching all persons
@@ -62,7 +64,7 @@ app.use(morgan((tokens, req, res) => {
   })
 
   /// GET: used to get a specific person by id
-  app.get('/api/persons/:id', (request, response) => {
+  app.get('/api/persons/:id', (request, response, next) => {
     Person.findById(request.params.id)
       .then(person => {
     if (person) {
@@ -74,7 +76,7 @@ app.use(morgan((tokens, req, res) => {
   })
 
   /// POST: Add new contact 
-  app.post('/api/persons', (request, response) => {
+  app.post('/api/persons', (request, response, next) => {
     const body = request.body
 
   // id data for name is missing, server will respond with 400 bad request 
