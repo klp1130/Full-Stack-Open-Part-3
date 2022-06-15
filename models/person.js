@@ -1,4 +1,7 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
+
+dotenv.config()
 
 const url = process.env.MONGODB_URI
 
@@ -26,3 +29,5 @@ personSchema.set('toJSON', {
 })
 
 module.exports = mongoose.model('Person', personSchema)
+
+export { Person }

@@ -36,7 +36,6 @@ app.use(morgan((tokens, req, res) => {
   }))
 
 
-
   /// GET: an event handler that is used to handle GET made a /root:
   app.get('/', (request, response) => {
     response.send('<h1>Hello World!</h1>')

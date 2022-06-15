@@ -21,7 +21,7 @@
     "git": "^0.1.5",
     "heroku": "^7.60.2",
     "mongodb": "^4.7.0",
-    "mongoose": "^6.3.6",
+    "mongoose": "^6.3.8",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
