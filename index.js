@@ -5,7 +5,6 @@ const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const Person = require('./models/person')
-
 const cors = require('cors')
 
 /// Middleware request logger
@@ -20,9 +19,14 @@ app.use(morgan((tokens, req, res) => {
   ].join(' ')
 }))
 
+  app.use(requestLogger)
+
   app.use(express.json())
+
   app.use(cors())
+
   app.use(express.static('build'))
+
   
   app.use(morgan((tokens, req, res) => {
     return [
@@ -106,9 +110,28 @@ app.use(morgan((tokens, req, res) => {
 
   /// DELETE
   app.delete('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    persons = persons.filter(person => person.id !== id)
+  Person.findByIdAndRemove(request.params.id)
+    .then(result => {
     response.status(204).end()
+    })
+    .catch(error => next(error))
+  })
+
+  /// PUT : Updating a Person
+
+  app.put('api/persons/:id', (request, response, next) => {
+    const body = request.body
+    
+    const person = {
+      name: body.name,
+      number: body.number,
+    }
+
+    Person.findByIdAndUpdate(request.params.id, person, { new: true })
+    .then(updatedPerson => {
+      response.json(updatedPerson.toJSON())
+    })
+    .catch(error => next(error))
   })
   
   const unknownEndpoint = (request, response) => {
@@ -126,7 +149,7 @@ app.use(morgan((tokens, req, res) => {
 
     next(error)
   }
-  
+
   app.use(errorHandler)
 
   const PORT = process.env.PORT
