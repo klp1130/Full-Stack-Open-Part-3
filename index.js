@@ -19,8 +19,6 @@ app.use(morgan((tokens, req, res) => {
   ].join(' ')
 }))
 
-  app.use(requestLogger)
-
   app.use(express.json())
 
   app.use(cors())
@@ -104,8 +102,7 @@ app.use(morgan((tokens, req, res) => {
     person.save()
     .then(savedPerson => {
       response.json(savedPerson.toJSON())
-      .catch(error => next(error))
-    })
+    }).catch(error => next(error))
   })
 
   /// DELETE
