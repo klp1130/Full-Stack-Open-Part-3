@@ -70,7 +70,7 @@ app.use(morgan((tokens, req, res) => {
     Person.findById(request.params.id)
       .then(person => {
     if (person) {
-      response.json(person)
+      response.json(person.toJSON())
     } else {
       response.status(404).end()
     }
@@ -109,13 +109,13 @@ app.use(morgan((tokens, req, res) => {
   })
 
   /// DELETE
-  app.delete('/api/persons/:id', (request, response) => {
-  Person.findByIdAndRemove(request.params.id)
-    .then(result => {
-    response.status(204).end()
+  app.delete('/api/persons/:id', (request, response, next) => {
+    Person.findByIdAndRemove(request.params.id)
+      .then(result => {
+      response.status(204).end()
+      })
+      .catch(error => next(error))
     })
-    .catch(error => next(error))
-  })
 
   /// PUT : Updating a Person
 
