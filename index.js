@@ -55,7 +55,6 @@ app.use(morgan((tokens, req, res) => {
   
 
   // Event handler for fetching all persons
-
   app.get('/api/persons', (request, response) => {
     Person.find({}).then(persons => {
     response.json(persons)
@@ -99,7 +98,8 @@ app.use(morgan((tokens, req, res) => {
 
     person.save()
     .then(savedPerson => {
-      response.json(savedPerson)
+      response.json(savedPerson.toJSON())
+      .catch(error => next(error))
     })
   })
 
