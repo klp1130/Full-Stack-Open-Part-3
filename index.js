@@ -95,10 +95,10 @@ app.use(morgan((tokens, req, res) => {
     const person = new Person ({
       name: body.name,
       number: body.number,
-      id: generateId(),
     })
 
-    person.save().then(savedPerson => {
+    person.save()
+    .then(savedPerson => {
       response.json(savedPerson)
     })
   })
