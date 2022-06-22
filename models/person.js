@@ -1,3 +1,4 @@
+require('dotenv').config();
 const mongoose = require('mongoose')
 
 const url = process.env.MONGODB_URI
@@ -16,6 +17,7 @@ const personSchema = new mongoose.Schema({
   name: String,
   number: String,
 })
+
 
 personSchema.set('toJSON', {
   transform: (document, returnedObject) => {
