@@ -5,7 +5,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const Person = require('./models/person')
 
-/// Middleware request logger
+/// Middleware request logger 
 app.use(morgan((tokens, req, res) => {
   return [
     tokens.method(req, res),
@@ -17,7 +17,7 @@ app.use(morgan((tokens, req, res) => {
   ].join(' ')
 }))
 
-
+  
   app.use(express.json())
 
   app.use(cors())
