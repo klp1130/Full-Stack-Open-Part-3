@@ -99,8 +99,7 @@ app.use(morgan((tokens, req, res) => {
       number: body.number,
     })
 
-    person.save()
-    .then(savedPerson => {
+    person.save().then(savedPerson => {
       response.json(savedPerson.toJSON())
     }).catch(error => next(error))
   })
