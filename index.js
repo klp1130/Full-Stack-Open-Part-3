@@ -140,6 +140,8 @@ app.use(morgan((tokens, req, res) => {
 
     if (error.name === 'CastError') {
       return response.status(400).send({ error: 'malformatted id' })
+    } else if (error.name === 'ValidiationError') {
+      return response.status(400).json({error: error.message })
     }
 
     next(error)
