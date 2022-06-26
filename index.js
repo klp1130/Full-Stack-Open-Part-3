@@ -1,13 +1,11 @@
-const { request } = require('express')
-require('dotenv').config()
-const { response } = require('express')
 const express = require('express')
 const app = express()
+require('dotenv').config()
+const cors = require('cors')
 const morgan = require('morgan')
 const Person = require('./models/person')
-const cors = require('cors')
 
-/// Middleware request logger
+/// Middleware request logger 
 app.use(morgan((tokens, req, res) => {
   return [
     tokens.method(req, res),
@@ -19,6 +17,7 @@ app.use(morgan((tokens, req, res) => {
   ].join(' ')
 }))
 
+  
   app.use(express.json())
 
   app.use(cors())
@@ -42,6 +41,7 @@ app.use(morgan((tokens, req, res) => {
   app.get('/', (request, response) => {
     response.send('<h1>Hello World!</h1>')
   })
+
   /// GET for how many entries are in the phone book + date/time
   app.get('/info', (request, response) => {
     const currentDate = new Date().toLocaleString();
@@ -148,7 +148,7 @@ app.use(morgan((tokens, req, res) => {
 
   app.use(errorHandler)
 
-  const PORT = process.env.PORT
+  const PORT = process.env.PORT || 3001
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
   })
