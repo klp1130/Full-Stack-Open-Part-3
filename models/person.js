@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config()
 const mongoose = require('mongoose')
 
 
@@ -6,8 +6,8 @@ const url = process.env.MONGODB_URI
 
 console.log('connecting to', url)
 
-mongoose.connect(url, { useNewURLParser: true, useUnifiedTopology: true})
-  .then(result => {
+mongoose.connect(url, { useNewURLParser: true, useUnifiedTopology: true })
+  .then(() => {
     console.log('connected to MongoDB')
   })
   .catch((error) => {
@@ -15,10 +15,16 @@ mongoose.connect(url, { useNewURLParser: true, useUnifiedTopology: true})
   })
 
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+  name: {
+    type: String,
+    minlength: 3,
+    required: true,
+  },
+  number: {
+    type: String,
+    minlength: 8,
+  }
 })
-
 
 personSchema.set('toJSON', {
   transform: (document, returnedObject) => {

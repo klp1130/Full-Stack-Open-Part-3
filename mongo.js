@@ -28,34 +28,34 @@ const personSchema = new mongoose.Schema({
 
 const Person = mongoose.model('Person', personSchema)
 
-// if node command line prompt is === 3 characters show entire phonebook 
+// if node command line prompt is === 3 characters show entire phonebook
 if (process.argv.length === 3) {
-    console.log("phonebook:");
+  console.log('phonebook:')
 
-    Person.find({}).then(result => {
-        result.forEach(results => {
-        console.log(`${results.name} ${results.number}`)
-        })
-        mongoose.connection.close()
+  Person.find({}).then(result => {
+    result.forEach(results => {
+      console.log(`${results.name} ${results.number}`)
     })
+    mongoose.connection.close()
+  })
 
-// if node command line prompt is == 5 characters, save entry 
-//where [3] is the name and [4] is the number
+  // if node command line prompt is == 5 characters, save entry
+  //where [3] is the name and [4] is the number
 
-   } else if (process.argv.length == 5) {
-       const name = process.argv[3]
-       const number = process.argv[4]
+} else if (process.argv.length === 5) {
+  const name = process.argv[3]
+  const number = process.argv[4]
 
-       const person = new Person({
-           name: name, 
-           number: number
-       })
+  const person = new Person({
+    name: name,
+    number: number
+  })
 
-// Save, print result, close connection.
-    person.save().then(() => {
+  // Save, print result, close connection.
+  person.save().then(() => {
     console.log(`Added ${name} number: ${number} to phonebook`)
     return mongoose.connection.close()
-    }) 
+  })
 
-  .catch((err) => console.log(err))
+    .catch((err) => console.log(err))
 }
