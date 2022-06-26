@@ -81,7 +81,6 @@ app.use(morgan((tokens, req, res) => {
     const body = request.body
 
   // id data for name is missing, server will respond with 400 bad request 
-
     if (body.name === undefined) {
       return response.status(400).json({
         error: 'name missing'
