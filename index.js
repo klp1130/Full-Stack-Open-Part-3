@@ -112,6 +112,15 @@ app.delete('/api/persons/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
+app.get('/api/persons/query/:name', (req, res, next) => {
+  const name = req.params.name
+
+  Person.findOne({ 'name': name })
+    .then(result => {
+      res.json(result)
+    }).catch(error => next(error))
+})
+
 /// PUT : Updating a Person
 app.put('api/persons/:id', (request, response, next) => {
   const body = request.body
